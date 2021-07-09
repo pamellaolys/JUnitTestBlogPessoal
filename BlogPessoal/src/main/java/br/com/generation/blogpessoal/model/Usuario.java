@@ -1,3 +1,4 @@
+
 package br.com.generation.blogpessoal.model;
 
 import java.time.LocalDate;

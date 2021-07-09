@@ -1,5 +1,6 @@
 package br.com.generation.blogpessoal.model;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.ParseException;
@@ -13,6 +14,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +37,12 @@ public class UsuarioModelTest {
 	@BeforeEach
 	public void start() throws ParseException {
 
-		LocalDate data = LocalDate.parse("2000-07-22", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate data = LocalDate.parse("1969-09-29", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
-        usuario = new Usuario(0L, "João da Silva", "joao@email.com.br", "13465278", data);
+        usuario = new Usuario(0L, "Simone Oliveira", "monny@email.com.br", "13465278", data);
 
 	}
+
 
 	@Test
 	@DisplayName("✔ Valida Atributos Não Nulos")
@@ -52,11 +55,12 @@ public class UsuarioModelTest {
 		assertTrue(violacao.isEmpty());
 	}
 	
+	
 	@Test
 	@DisplayName("❌ Valida Atributos Nulos")
 	void testValidaAtributosNulos() {
 		
-		usuarioErro.setUsuario("paulo@email.com.br");
+		usuarioErro.setUsuario("monny@email.com.br");
 
 		Set<ConstraintViolation<Usuario>> violacao = validator.validate(usuarioErro);
 		

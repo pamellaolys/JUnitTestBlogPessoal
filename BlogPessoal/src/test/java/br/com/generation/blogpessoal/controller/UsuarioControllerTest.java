@@ -1,5 +1,8 @@
 package br.com.generation.blogpessoal.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,23 +29,23 @@ public class UsuarioControllerTest {
 	private UsuarioRepository usuarioRepository;
 	
 	@BeforeAll
-	void start() throws ParseException {
+	public void start() throws ParseException {
 	   
 		LocalDate data = LocalDate.parse("2000-07-22", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
-		Usuario usuario = new Usuario(0, "João da Silva", "joao@email.com.br", "13465278", data);
+		Usuario usuario = new Usuario (0L, "Simone Oliveira", "monny@email.com.br", "13465678", data);
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
 			usuarioRepository.save(usuario);
 		
-		usuario = new Usuario(0, "Manuel da Silva", "manuel@email.com.br", "13465278", data);
+		usuario = new Usuario (0L, "Elisabeth de Oliveira", "betholiveira@email.com.br", "13465278", data);
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
 			usuarioRepository.save(usuario);
 		
-		usuario = new Usuario(0, "Frederico da Silva", "frederico@email.com.br", "13465278", data);
+		usuario = new Usuario (0L, "Regina de Oliveira Silva", "reginaos@email.com.br", "13465278", data);
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
 			usuarioRepository.save(usuario);
 
-        usuario = new Usuario(0, "Paulo Antunes", "paulo@email.com.br", "13465278", data);
+        usuario = new Usuario (0L, "João Pereira", "pereirapaulo@email.com.br", "13465278", data);
         if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
             usuarioRepository.save(usuario);
 	}
@@ -51,16 +54,16 @@ public class UsuarioControllerTest {
 	@DisplayName("💾 Retorna o nome")
 	public void findFirstByNomeRetornaNome() throws Exception {
 
-		Usuario usuario = usuarioRepository.findByNome("João da Silva");
-		assertTrue(usuario.getNome().equals("João da Silva"));
+		Usuario usuario = usuarioRepository.findByNome("Simone Oliveira");
+		assertTrue(usuario.getNome().equals("Simone Oliveira"));
 	}
 	
-    
+	
 	@Test
 	@DisplayName("💾 Retorna 3 usuarios")
 	public void findAllByNomeContainingIgnoreCaseRetornaTresUsuarios() {
 
-		List<Usuario> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
+		List<Usuario> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Oliveira");
 		assertEquals(3, listaDeUsuarios.size());
 	}
 	

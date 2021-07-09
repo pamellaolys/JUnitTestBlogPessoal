@@ -1,9 +1,15 @@
 package br.com.generation.blogpessoal.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +28,22 @@ public class UsuarioRepositoryTest {
 
 		@BeforeAll
 		public void start() {
-			Usuario usuario = new Usuario(null, "Chefe", "0y", "9xxxxxxx9");
+			
+			LocalDate data = LocalDate.parse("2000-07-22", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			
+			Usuario usuario = new Usuario(0L, "Paulo Gustavo", "paulog@email.com.br", "12345", data);
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 
-			usuario = new Usuario(null, "Novo Chefe", "0y", "8xxxxxxx8");
+			usuario = new Usuario(0L, "Paulo Tanabe", "tanabepaulo@email.com.br", "12345",data);
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 
-			usuario = new Usuario(null, "chefe Mais Antigo", "0y", "7xxxxxxx7");
+			usuario = new Usuario(0L, "Paulo Rodrigues", "rdgspaulo@email.com.br", "12345", data);
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 
-			usuario = new Usuario(null, "Amigo", "0z", "5xxxxxxx5");
+			usuario = new Usuario(0L, "Janaina Silva", "janaina@email.com.br", "12345", data);
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 		}
@@ -42,19 +51,19 @@ public class UsuarioRepositoryTest {
 		@Test
 		public void findByNomeRetornaContato() throws Exception {
 
-			Usuario usuario = usuarioRepository.findByNome("Chefe");
+			Usuario usuario = usuarioRepository.findByNome("Paulo Gustavo"); //nome completo
 
-			assertTrue(usuario.getNome().equals("Chefe"));
+			assertTrue(usuario.getNome().equals("Paulo Gustavo"));
 		}
 
 		@Test
 		public void findAllByNomeIgnoreCaseRetornaTresContato() {
 
-			List<Usuario> usuario = usuarioRepository.findAllByNomeIgnoreCaseContaining("chefe");
+			List<Usuario> usuario = usuarioRepository.findAllByNomeContainingIgnoreCase("Paulo");
 
 			assertEquals(3, usuario.size());
 		}
-
+	
 		@AfterAll
 		public void end() {
 			usuarioRepository.deleteAll();
